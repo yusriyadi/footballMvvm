@@ -18,6 +18,8 @@ import tellabs.android.footballclubmvvm.data.remote.response.TeamItem
 import tellabs.android.footballclubmvvm.ui.detailTeam.DetailTeamActivity
 import tellabs.android.footballclubmvvm.utils.EXTRA_TEAM_ID
 import tellabs.android.footballclubmvvm.utils.getTeamsData
+import tellabs.android.footballclubmvvm.utils.gone
+import tellabs.android.footballclubmvvm.utils.visible
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        progressBarMain.gone()
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -53,10 +56,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.leaugesResponse().observe(this, Observer {
             when (it) {
                 is UiState.Loading -> {
-                    Toast.makeText(this, "lagi loading gan", Toast.LENGTH_SHORT).show()
+                    progressBarMain.visible()
                 }
                 is UiState.Success -> {
                     if (it != null) {
+                        progressBarMain.gone()
                         it.data.leagues.forEach {
                             leaguesName.add(it.strLeague)
                         }
@@ -81,13 +85,14 @@ class MainActivity : AppCompatActivity() {
             {
                 is UiState.Loading->
                 {
-                    Toast.makeText(this, "lagi loading gan", Toast.LENGTH_SHORT).show()
+                    progressBarMain.visible()
                 }
                 is UiState.Success ->
                 {
                    // Toast.makeText(this, it.data.teams[0].strTeam, Toast.LENGTH_SHORT).show()
                     if (it!=null)
                     {
+                        progressBarMain.gone()
                         val team : List<TeamItem> = it.data.teams
 
                         teams.addAll(teams)

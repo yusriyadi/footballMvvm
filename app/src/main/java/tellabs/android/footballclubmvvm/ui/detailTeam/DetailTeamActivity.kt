@@ -21,7 +21,7 @@ class DetailTeamActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_team)
 
         progressBar.gone()
-        //constraintDetail.gone()
+        scrollView2.gone()
 
         val id: String = intent.getStringExtra(EXTRA_TEAM_ID)
 
@@ -34,7 +34,7 @@ class DetailTeamActivity : AppCompatActivity() {
                 }
                 is UiState.Success -> {
                     progressBar.gone()
-                   // constraintDetail.visible()
+                   scrollView2.visible()
 
                         toast(getTeamsDataDetail(it.data.teams)[0].teamName)
 

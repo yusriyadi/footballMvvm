@@ -23,21 +23,19 @@ class DetailTeamVIewModel(
 
     private val detailTeamResponseliveData = MutableLiveData<UiState<TeamDetailResponse>>()
 
-    fun getTeamDetail() : LiveData<UiState<TeamDetailResponse>> = detailTeamResponseliveData
+    fun getTeamDetail(): LiveData<UiState<TeamDetailResponse>> = detailTeamResponseliveData
 
 
-
-    fun getTeam(idTeam : String)
-    {
+    fun getTeam(idTeam: String) {
         detailTeamResponseliveData.value = UiState.Loading(true)
         detailTeamRepository.getTeamDetail(idTeam)
             .with(schedulerProvider)
             .subscribeBy(
                 onSuccess = {
-                    detailTeamResponseliveData.value= UiState.Success(it)
+                    detailTeamResponseliveData.value = UiState.Success(it)
                 },
                 onError = {
-                    detailTeamResponseliveData.value= UiState.Error(it)
+                    detailTeamResponseliveData.value = UiState.Error(it)
 
                 }).addTo(disposable)
 
