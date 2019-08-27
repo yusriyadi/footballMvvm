@@ -1,0 +1,4 @@
+- this project use MVVM Pattern
+- data source thesportdb
+- use kotlin language
+- android
